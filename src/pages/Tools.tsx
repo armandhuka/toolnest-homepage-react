@@ -1,16 +1,38 @@
 
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { Search } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ToolCard from '../components/tools/ToolCard';
+import { toolsData } from '../data/toolsData';
 
 const Tools = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  // Get unique categories from tools data
+  const categories = useMemo(() => {
+    const cats = [...new Set(toolsData.map(tool => tool.category))];
+    return ['all', ...cats];
+  }, []);
+
+  // Filter tools based on search and category
+  const filteredTools = useMemo(() => {
+    return toolsData.filter(tool => {
+      const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           tool.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchTerm, selectedCategory]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
         duration: 0.6
       }
     }
@@ -32,7 +54,7 @@ const Tools = () => {
       <Header />
 
       {/* Title Section */}
-      <section className="pt-32 pb-20 px-4">
+      <section className="pt-32 pb-12 px-4">
         <div className="toolnest-container">
           <motion.div
             variants={containerVariants}
@@ -44,49 +66,98 @@ const Tools = () => {
               className="text-5xl md:text-6xl font-bold text-toolnest-text mb-6"
               variants={itemVariants}
             >
-              AI Tools Directory
+              Explore AI Tools
             </motion.h1>
             
             <motion.p 
-              className="text-xl md:text-2xl text-toolnest-text/80 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-toolnest-text/80 max-w-3xl mx-auto mb-12"
               variants={itemVariants}
             >
-              Discover the most comprehensive collection of AI tools to boost your productivity
+              Browse 150+ powerful AI tools categorized and curated for you
             </motion.p>
+
+            {/* Search and Filter Section */}
+            <motion.div 
+              className="max-w-4xl mx-auto mb-8"
+              variants={itemVariants}
+            >
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
+                {/* Search Bar */}
+                <div className="relative flex-1 max-w-md">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-toolnest-text/50" size={20} />
+                  <input
+                    type="text"
+                    placeholder="Search for a tool..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 rounded-full border-2 border-transparent bg-white shadow-lg focus:outline-none focus:border-toolnest-text transition-all duration-300"
+                  />
+                </div>
+
+                {/* Category Filter */}
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="px-6 py-3 rounded-full border-2 border-transparent bg-white shadow-lg focus:outline-none focus:border-toolnest-text transition-all duration-300 capitalize"
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>
+                      {category === 'all' ? 'All Categories' : category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Results Count */}
+              <p className="text-toolnest-text/70 mt-4">
+                Showing {filteredTools.length} of {toolsData.length} tools
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Coming Soon Section */}
-      <section className="py-20 px-4 bg-toolnest-accent/20">
+      {/* Tools Grid Section */}
+      <section className="pb-20 px-4">
         <div className="toolnest-container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <div className="bg-white rounded-2xl p-12 shadow-lg max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold text-toolnest-text mb-4">
-                Coming Soon
-              </h2>
-              <p className="text-toolnest-text/80 text-lg mb-8">
-                We're building an amazing collection of AI tools for you. Stay tuned for the launch!
-              </p>
-              <div className="bg-toolnest-accent/30 rounded-lg p-6">
-                <p className="text-toolnest-text font-medium">
-                  🚀 Features in development:
+          {filteredTools.length > 0 ? (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {filteredTools.map((tool, index) => (
+                <motion.div key={tool.id} variants={itemVariants}>
+                  <ToolCard tool={tool} />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-20"
+            >
+              <div className="bg-white rounded-2xl p-12 shadow-lg max-w-md mx-auto">
+                <h3 className="text-2xl font-bold text-toolnest-text mb-4">
+                  No tools found
+                </h3>
+                <p className="text-toolnest-text/70 mb-6">
+                  Try adjusting your search or filter criteria
                 </p>
-                <ul className="text-toolnest-text/80 mt-4 space-y-2">
-                  <li>• 150+ curated AI tools</li>
-                  <li>• Smart categorization</li>
-                  <li>• User reviews and ratings</li>
-                  <li>• Advanced search filters</li>
-                </ul>
+                <button
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory('all');
+                  }}
+                  className="px-6 py-3 bg-toolnest-text text-white rounded-full hover:bg-toolnest-text/90 transition-colors duration-200"
+                >
+                  Clear Filters
+                </button>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
         </div>
       </section>
 
