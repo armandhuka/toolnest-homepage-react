@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Star, RefreshCw, ArrowDown, Mail, X, Zap, Bot, Image, FileText, Code, Video, Music, Palette } from 'lucide-react';
+import { Search, Star, RefreshCw, ArrowDown, Mail, X, Zap, Bot, Image, FileText, Code, Video, Music, Palette, Twitter, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -106,7 +106,7 @@ const Index = () => {
         </motion.div>
       )}
 
-      {/* Sticky Header */}
+      {/* Updated Sticky Header */}
       <motion.header 
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled ? 'bg-toolnest-bg shadow-lg' : 'bg-transparent'
@@ -121,18 +121,27 @@ const Index = () => {
               className="text-2xl font-bold text-toolnest-text"
               whileHover={{ scale: 1.05 }}
             >
-              ToolNest
+              <Link to="/">ToolNest</Link>
             </motion.div>
             <nav className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Tools', 'Contact'].map((item) => (
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-toolnest-text hover:text-toolnest-text/80 transition-colors duration-200"
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'About', path: '/about' },
+                { name: 'Tools', path: '/tools' },
+                { name: 'Contact', path: '/contact' }
+              ].map((item) => (
+                <motion.div
+                  key={item.name}
                   whileHover={{ y: -2 }}
+                  className="relative"
                 >
-                  {item}
-                </motion.a>
+                  <Link
+                    to={item.path}
+                    className="text-toolnest-text hover:text-toolnest-text/80 transition-colors duration-200 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-toolnest-text after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
             </nav>
           </div>
@@ -393,23 +402,38 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-toolnest-text/10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="text-toolnest-text mb-4 md:mb-0">
-            ToolNest © 2025
-          </div>
-          <nav className="flex space-x-6">
-            {['Home', 'About', 'Tools', 'Contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-toolnest-text/80 hover:text-toolnest-text transition-colors duration-200"
-              >
-                {item}
+      {/* Updated Footer */}
+      <footer className="py-12 px-6 bg-toolnest-text">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-8">
+            <div className="text-white mb-4 md:mb-0">
+              © 2025 ToolNest. All rights reserved.
+            </div>
+            <nav className="flex items-center space-x-6 mb-4 md:mb-0">
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'About', path: '/about' },
+                { name: 'Tools', path: '/tools' },
+                { name: 'Contact', path: '/contact' }
+              ].map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="text-white/80 hover:text-white transition-colors duration-200"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+            <div className="flex items-center space-x-4">
+              <a href="#" className="text-white/80 hover:text-white transition-colors duration-200">
+                <Twitter size={20} />
               </a>
-            ))}
-          </nav>
+              <a href="#" className="text-white/80 hover:text-white transition-colors duration-200">
+                <Linkedin size={20} />
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
