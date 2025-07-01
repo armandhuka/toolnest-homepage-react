@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,6 +21,16 @@ import FindReplace from "./pages/text-tools/FindReplace";
 import PalindromeChecker from "./pages/text-tools/PalindromeChecker";
 import RemoveSpecialChars from "./pages/text-tools/RemoveSpecialChars";
 import TextLimiter from "./pages/text-tools/TextLimiter";
+
+// Unit Converter Tools
+import LengthConverter from "./pages/unit-tools/LengthConverter";
+import WeightConverter from "./pages/unit-tools/WeightConverter";
+import TemperatureConverter from "./pages/unit-tools/TemperatureConverter";
+import TimeConverter from "./pages/unit-tools/TimeConverter";
+import SpeedConverter from "./pages/unit-tools/SpeedConverter";
+import AreaConverter from "./pages/unit-tools/AreaConverter";
+import VolumeConverter from "./pages/unit-tools/VolumeConverter";
+import DataSizeConverter from "./pages/unit-tools/DataSizeConverter";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +58,16 @@ const App = () => (
           <Route path="/text-tools/palindrome-checker" element={<PalindromeChecker />} />
           <Route path="/text-tools/remove-special-chars" element={<RemoveSpecialChars />} />
           <Route path="/text-tools/text-limiter" element={<TextLimiter />} />
+
+          {/* Unit Converter Tools Routes */}
+          <Route path="/unit-tools/length-converter" element={<LengthConverter />} />
+          <Route path="/unit-tools/weight-converter" element={<WeightConverter />} />
+          <Route path="/unit-tools/temperature-converter" element={<TemperatureConverter />} />
+          <Route path="/unit-tools/time-converter" element={<TimeConverter />} />
+          <Route path="/unit-tools/speed-converter" element={<SpeedConverter />} />
+          <Route path="/unit-tools/area-converter" element={<AreaConverter />} />
+          <Route path="/unit-tools/volume-converter" element={<VolumeConverter />} />
+          <Route path="/unit-tools/data-size-converter" element={<DataSizeConverter />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

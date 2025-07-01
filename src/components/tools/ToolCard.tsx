@@ -46,7 +46,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
   };
 
   const getToolRoute = (toolName: string, category: string) => {
-    // Only create routes for Text Tools for now
+    // Text Tools routes
     if (category === 'Text Tools') {
       const routeMap: { [key: string]: string } = {
         'Word Counter': '/text-tools/word-counter',
@@ -62,6 +62,22 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       };
       return routeMap[toolName] || null;
     }
+
+    // Unit Converter Tools routes
+    if (category === 'Unit Converter Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Length': '/unit-tools/length-converter',
+        'Weight': '/unit-tools/weight-converter',
+        'Temperature': '/unit-tools/temperature-converter',
+        'Time': '/unit-tools/time-converter',
+        'Speed': '/unit-tools/speed-converter',
+        'Area': '/unit-tools/area-converter',
+        'Volume': '/unit-tools/volume-converter',
+        'Data Size': '/unit-tools/data-size-converter'
+      };
+      return routeMap[toolName] || null;
+    }
+
     return null;
   };
 
@@ -72,7 +88,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
     }
   };
 
-  const isTextTool = tool.category === 'Text Tools';
+  const isImplementedCategory = tool.category === 'Text Tools' || tool.category === 'Unit Converter Tools';
   const hasRoute = getToolRoute(tool.name, tool.category) !== null;
 
   return (
@@ -124,18 +140,18 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       {/* Action Button */}
       <motion.button
         className={`w-full py-3 px-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-          (tool.status === 'available' && isTextTool && hasRoute)
+          (tool.status === 'available' && isImplementedCategory && hasRoute)
             ? 'bg-toolnest-text text-white hover:bg-toolnest-text/90 hover:shadow-lg cursor-pointer'
             : tool.status === 'available'
             ? 'bg-toolnest-accent/50 text-toolnest-text/70 cursor-not-allowed'
             : 'bg-toolnest-accent/50 text-toolnest-text/70 cursor-not-allowed'
         }`}
-        whileHover={(tool.status === 'available' && isTextTool && hasRoute) ? { scale: 1.02 } : {}}
-        whileTap={(tool.status === 'available' && isTextTool && hasRoute) ? { scale: 0.98 } : {}}
+        whileHover={(tool.status === 'available' && isImplementedCategory && hasRoute) ? { scale: 1.02 } : {}}
+        whileTap={(tool.status === 'available' && isImplementedCategory && hasRoute) ? { scale: 0.98 } : {}}
         onClick={handleOpenTool}
-        disabled={!(tool.status === 'available' && isTextTool && hasRoute)}
+        disabled={!(tool.status === 'available' && isImplementedCategory && hasRoute)}
       >
-        {(tool.status === 'available' && isTextTool && hasRoute) ? (
+        {(tool.status === 'available' && isImplementedCategory && hasRoute) ? (
           <>
             Open Tool
             <ExternalLink size={16} />
