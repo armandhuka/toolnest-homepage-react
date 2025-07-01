@@ -9,12 +9,12 @@ import { toolsData } from '../data/toolsData';
 
 const Tools = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   // Get unique categories from tools data
   const categories = useMemo(() => {
     const cats = [...new Set(toolsData.map(tool => tool.category))];
-    return ['all', ...cats];
+    return ['All', ...cats];
   }, []);
 
   // Filter tools based on search and category
@@ -22,7 +22,7 @@ const Tools = () => {
     return toolsData.filter(tool => {
       const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            tool.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'All' || tool.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [searchTerm, selectedCategory]);
@@ -66,14 +66,14 @@ const Tools = () => {
               className="text-5xl md:text-6xl font-bold text-toolnest-text mb-6"
               variants={itemVariants}
             >
-              Explore AI Tools
+              Explore 50+ Free Tools
             </motion.h1>
             
             <motion.p 
               className="text-xl md:text-2xl text-toolnest-text/80 max-w-3xl mx-auto mb-12"
               variants={itemVariants}
             >
-              Browse 150+ powerful AI tools categorized and curated for you
+              Your all-in-one toolkit categorized for productivity
             </motion.p>
 
             {/* Search and Filter Section */}
@@ -102,7 +102,7 @@ const Tools = () => {
                 >
                   {categories.map(category => (
                     <option key={category} value={category}>
-                      {category === 'all' ? 'All Categories' : category}
+                      {category}
                     </option>
                   ))}
                 </select>
@@ -149,7 +149,7 @@ const Tools = () => {
                 <button
                   onClick={() => {
                     setSearchTerm('');
-                    setSelectedCategory('all');
+                    setSelectedCategory('All');
                   }}
                   className="px-6 py-3 bg-toolnest-text text-white rounded-full hover:bg-toolnest-text/90 transition-colors duration-200"
                 >
