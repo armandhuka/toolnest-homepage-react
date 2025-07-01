@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Star, RefreshCw, ArrowDown, Mail } from 'lucide-react';
+import { Search, Star, RefreshCw, ArrowDown, Mail, X, Zap, Bot, Image, FileText, Code, Video, Music, Palette } from 'lucide-react';
 
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [email, setEmail] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,14 @@ const Index = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -42,16 +51,65 @@ const Index = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.6, -0.05, 0.01, 0.99]
+        ease: "easeOut"
       }
     }
   };
 
+  const toolsData = [
+    { name: "AI Writer Pro", description: "Generate high-quality content with advanced AI writing assistance", icon: FileText },
+    { name: "Code Assistant", description: "Smart code completion and debugging for developers", icon: Code },
+    { name: "Image Generator", description: "Create stunning visuals with AI-powered image generation", icon: Image },
+    { name: "Video Editor AI", description: "Edit videos automatically with intelligent scene detection", icon: Video },
+    { name: "Smart Analytics", description: "Get deep insights from your data with AI analysis", icon: Zap },
+    { name: "Voice Synthesis", description: "Convert text to natural-sounding speech instantly", icon: Music },
+    { name: "Design Assistant", description: "Create beautiful designs with AI-powered suggestions", icon: Palette },
+    { name: "Chat Bot Builder", description: "Build intelligent chatbots without coding knowledge", icon: Bot }
+  ];
+
   return (
     <div className="min-h-screen bg-toolnest-bg font-inter">
+      {/* Popup Modal */}
+      {showModal && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div
+            className="bg-white rounded-2xl p-8 max-w-md mx-auto relative shadow-2xl"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X size={24} />
+            </button>
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-toolnest-text mb-4">
+                🔥 ToolNest is Live!
+              </h3>
+              <p className="text-toolnest-text/80 mb-6">
+                Discover 150+ AI tools designed to simplify your digital life.
+              </p>
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-toolnest-text text-white px-6 py-3 rounded-full font-semibold hover:bg-toolnest-text/90 transition-colors"
+              >
+                Explore Now
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
       {/* Sticky Header */}
       <motion.header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled ? 'bg-toolnest-bg shadow-lg' : 'bg-transparent'
         }`}
         initial={{ y: -100 }}
@@ -182,8 +240,55 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* Tools Section */}
       <section className="py-20 px-6 bg-toolnest-accent/20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-toolnest-text mb-4">
+              Explore Popular Tools
+            </h2>
+            <p className="text-toolnest-text/80 text-lg">
+              Get a preview of what's waiting for you in our collection
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {toolsData.map((tool, index) => (
+              <motion.div
+                key={tool.name}
+                className="bg-toolnest-accent p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+              >
+                <div className="flex items-center mb-4">
+                  <tool.icon className="text-toolnest-text mr-3 group-hover:scale-110 transition-transform" size={32} />
+                  <span className="bg-toolnest-text text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    Coming Soon
+                  </span>
+                </div>
+                <h3 className="text-lg font-semibold text-toolnest-text mb-2">
+                  {tool.name}
+                </h3>
+                <p className="text-toolnest-text/80 text-sm">
+                  {tool.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -262,6 +367,29 @@ const Index = () => {
                 Subscribe
               </motion.button>
             </form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 px-6 bg-toolnest-accent/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-toolnest-text mb-6">
+              Want to explore all 150+ tools?
+            </h2>
+            <motion.button
+              className="bg-toolnest-text text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Explore All Tools
+            </motion.button>
           </motion.div>
         </div>
       </section>
