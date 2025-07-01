@@ -51,7 +51,7 @@ const Index = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.25, 0.1, 0.25, 1]
       }
     }
   };
@@ -81,7 +81,7 @@ const Index = () => {
             className="bg-white rounded-2xl p-8 max-w-md mx-auto relative shadow-2xl"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <button
               onClick={() => setShowModal(false)}
