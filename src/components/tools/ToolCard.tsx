@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Info, ExternalLink } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface Tool {
   id: number;
@@ -18,6 +19,8 @@ interface ToolCardProps {
 }
 
 const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
+  const navigate = useNavigate();
+
   const getCategoryIcon = (category: string) => {
     const icons: { [key: string]: string } = {
       'Unit Converter Tools': '📏',
@@ -41,6 +44,36 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
     };
     return colors[category] || 'bg-gray-100 text-gray-600';
   };
+
+  const getToolRoute = (toolName: string, category: string) => {
+    // Only create routes for Text Tools for now
+    if (category === 'Text Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Word Counter': '/text-tools/word-counter',
+        'Remove Duplicates': '/text-tools/remove-duplicates',
+        'Case Converter': '/text-tools/case-converter',
+        'Text Sorter': '/text-tools/text-sorter',
+        'Text Reverser': '/text-tools/text-reverser',
+        'Slug Generator': '/text-tools/slug-generator',
+        'Find & Replace': '/text-tools/find-replace',
+        'Palindrome Checker': '/text-tools/palindrome-checker',
+        'Remove Special Characters': '/text-tools/remove-special-chars',
+        'Text Limiter': '/text-tools/text-limiter'
+      };
+      return routeMap[toolName] || null;
+    }
+    return null;
+  };
+
+  const handleOpenTool = () => {
+    const route = getToolRoute(tool.name, tool.category);
+    if (route && tool.status === 'available') {
+      navigate(route);
+    }
+  };
+
+  const isTextTool = tool.category === 'Text Tools';
+  const hasRoute = getToolRoute(tool.name, tool.category) !== null;
 
   return (
     <motion.div
@@ -91,19 +124,24 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       {/* Action Button */}
       <motion.button
         className={`w-full py-3 px-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-          tool.status === 'available'
-            ? 'bg-toolnest-text text-white hover:bg-toolnest-text/90 hover:shadow-lg'
+          (tool.status === 'available' && isTextTool && hasRoute)
+            ? 'bg-toolnest-text text-white hover:bg-toolnest-text/90 hover:shadow-lg cursor-pointer'
+            : tool.status === 'available'
+            ? 'bg-toolnest-accent/50 text-toolnest-text/70 cursor-not-allowed'
             : 'bg-toolnest-accent/50 text-toolnest-text/70 cursor-not-allowed'
         }`}
-        whileHover={tool.status === 'available' ? { scale: 1.02 } : {}}
-        whileTap={tool.status === 'available' ? { scale: 0.98 } : {}}
-        disabled={tool.status === 'coming-soon'}
+        whileHover={(tool.status === 'available' && isTextTool && hasRoute) ? { scale: 1.02 } : {}}
+        whileTap={(tool.status === 'available' && isTextTool && hasRoute) ? { scale: 0.98 } : {}}
+        onClick={handleOpenTool}
+        disabled={!(tool.status === 'available' && isTextTool && hasRoute)}
       >
-        {tool.status === 'available' ? (
+        {(tool.status === 'available' && isTextTool && hasRoute) ? (
           <>
             Open Tool
             <ExternalLink size={16} />
           </>
+        ) : tool.status === 'available' ? (
+          'Coming Soon'
         ) : (
           'Coming Soon'
         )}
