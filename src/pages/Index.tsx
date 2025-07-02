@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Star, RefreshCw, ArrowDown, Mail, X, Zap, Bot, Image, FileText, Code, Video, Music, Palette, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -739,7 +738,7 @@ const Index = () => {
               onClick={handleExploreTools}
             >
               Explore All Tools
-            </button>
+            </motion.button>
           </motion.div>
         </div>
       </section>
