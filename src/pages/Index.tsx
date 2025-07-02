@@ -68,6 +68,17 @@ const Index = () => {
     }
   };
 
+  const scrollUpcomingTools = (direction: 'left' | 'right') => {
+    const container = document.getElementById('upcoming-tools-container');
+    if (container) {
+      const scrollAmount = 300;
+      container.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const getCategoryIcon = (category: string) => {
     const icons: { [key: string]: string } = {
       'Unit Converter Tools': '📏',
@@ -110,7 +121,6 @@ const Index = () => {
       return routeMap[toolName] || null;
     }
 
-    // Unit Converter Tools routes
     if (category === 'Unit Converter Tools') {
       const routeMap: { [key: string]: string } = {
         'Length Converter': '/unit-tools/length-converter',
@@ -125,7 +135,6 @@ const Index = () => {
       return routeMap[toolName] || null;
     }
 
-    // Date & Time Tools routes
     if (category === 'Date & Time Tools') {
       const routeMap: { [key: string]: string } = {
         'Age Calculator': '/date-tools/age-calculator',
@@ -139,7 +148,6 @@ const Index = () => {
       return routeMap[toolName] || null;
     }
 
-    // Number Tools routes
     if (category === 'Number Tools') {
       const routeMap: { [key: string]: string } = {
         'Percentage Calculator': '/number-tools/percentage-calculator',
@@ -156,7 +164,6 @@ const Index = () => {
       return routeMap[toolName] || null;
     }
 
-    // Math Tools routes
     if (category === 'Math Tools') {
       const routeMap: { [key: string]: string } = {
         'Advanced Calculator': '/math-tools/basic-calculator',
@@ -173,7 +180,6 @@ const Index = () => {
       return routeMap[toolName] || null;
     }
 
-    // Health Tools routes
     if (category === 'Health Tools') {
       const routeMap: { [key: string]: string } = {
         'BMI Calculator': '/health-tools/bmi-calculator',
@@ -193,21 +199,66 @@ const Index = () => {
   const handleToolClick = (tool: typeof toolsData[0]) => {
     const route = getToolRoute(tool.name, tool.category);
     if (route) {
-      // Save the current category to localStorage for persistent filtering
       localStorage.setItem('selectedCategory', tool.category);
       navigate(route);
     }
   };
 
-  const toolsDataPlaceholder = [
-    { name: "AI Writer Pro", description: "Generate high-quality content with advanced AI writing assistance", icon: FileText },
-    { name: "Code Assistant", description: "Smart code completion and debugging for developers", icon: Code },
-    { name: "Image Generator", description: "Create stunning visuals with AI-powered image generation", icon: Image },
-    { name: "Video Editor AI", description: "Edit videos automatically with intelligent scene detection", icon: Video },
-    { name: "Smart Analytics", description: "Get deep insights from your data with AI analysis", icon: Zap },
-    { name: "Voice Synthesis", description: "Convert text to natural-sounding speech instantly", icon: Music },
-    { name: "Design Assistant", description: "Create beautiful designs with AI-powered suggestions", icon: Palette },
-    { name: "Chat Bot Builder", description: "Build intelligent chatbots without coding knowledge", icon: Bot }
+  const handleCategoryClick = (categoryName: string) => {
+    localStorage.setItem('selectedCategory', categoryName);
+    navigate('/tools');
+  };
+
+  // Categories data
+  const categoriesData = [
+    { name: 'Text Tools', icon: '📝', description: '20+ tools', color: 'bg-green-100 text-green-600' },
+    { name: 'Number Tools', icon: '🔢', description: '15+ tools', color: 'bg-yellow-100 text-yellow-600' },
+    { name: 'Date & Time Tools', icon: '📅', description: '10+ tools', color: 'bg-purple-100 text-purple-600' },
+    { name: 'Unit Converter Tools', icon: '📏', description: '12+ tools', color: 'bg-blue-100 text-blue-600' },
+    { name: 'Math Tools', icon: '🧮', description: '18+ tools', color: 'bg-red-100 text-red-600' },
+    { name: 'Health Tools', icon: '💪', description: '8+ tools', color: 'bg-cyan-100 text-cyan-600' },
+    { name: 'Resume Tools', icon: '📄', description: 'Smart utilities', color: 'bg-orange-100 text-orange-600' },
+    { name: 'Developer Tools', icon: '⚡', description: 'Smart utilities', color: 'bg-indigo-100 text-indigo-600' }
+  ];
+
+  // Upcoming tools data
+  const upcomingTools = [
+    {
+      name: 'QR Code Generator',
+      description: 'Generate custom QR codes instantly.',
+      category: 'Developer Tool',
+      color: 'bg-indigo-100 text-indigo-600'
+    },
+    {
+      name: 'Resume Builder',
+      description: 'Create professional resumes in minutes.',
+      category: 'Resume Tool',
+      color: 'bg-orange-100 text-orange-600'
+    },
+    {
+      name: 'CSS Box Shadow Generator',
+      description: 'Design shadows visually.',
+      category: 'Developer Tool',
+      color: 'bg-indigo-100 text-indigo-600'
+    },
+    {
+      name: 'Username Generator',
+      description: 'Smart and catchy usernames.',
+      category: 'Text Tool',
+      color: 'bg-green-100 text-green-600'
+    },
+    {
+      name: 'Invoice Maker',
+      description: 'Create quick downloadable invoices.',
+      category: 'Business Tool',
+      color: 'bg-pink-100 text-pink-600'
+    },
+    {
+      name: 'JSON Formatter',
+      description: 'Prettify and validate JSON code.',
+      category: 'Developer Tool',
+      color: 'bg-indigo-100 text-indigo-600'
+    }
   ];
 
   return (
@@ -252,7 +303,7 @@ const Index = () => {
 
       <Header />
 
-      {/* Hero Section - Updated */}
+      {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         <div className="absolute inset-0 opacity-5">
           <div className="animate-float absolute top-20 left-10">
@@ -309,7 +360,7 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Featured Tools Section - NEW */}
+      {/* Featured Tools Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -328,7 +379,6 @@ const Index = () => {
           </motion.div>
 
           <div className="relative">
-            {/* Scroll buttons */}
             <button
               onClick={() => scrollFeaturedTools('left')}
               className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
@@ -342,7 +392,6 @@ const Index = () => {
               <ChevronRight size={20} className="text-toolnest-text" />
             </button>
 
-            {/* Scrollable container */}
             <div
               id="featured-tools-container"
               className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 px-12"
@@ -377,6 +426,132 @@ const Index = () => {
                   </p>
                   <button className="w-full bg-toolnest-text text-white py-2 px-4 rounded-xl font-medium group-hover:bg-toolnest-text/90 transition-colors">
                     Try Now
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Explore Categories Section */}
+      <section className="py-20 px-6 bg-toolnest-accent/20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-toolnest-text mb-4">
+              Explore Categories
+            </h2>
+            <p className="text-toolnest-text/80 text-lg">
+              Find tools organized by category for quick access
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categoriesData.map((category, index) => (
+              <motion.div
+                key={category.name}
+                className="bg-toolnest-accent p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+                onClick={() => handleCategoryClick(category.name)}
+              >
+                <div className="flex items-center mb-4">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${category.color} shadow-sm mr-4`}>
+                    {category.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-toolnest-text mb-1">
+                      {category.name}
+                    </h3>
+                    <p className="text-toolnest-text/70 text-sm">
+                      {category.description}
+                    </p>
+                  </div>
+                </div>
+                <button className="w-full bg-toolnest-text text-white py-2 px-4 rounded-xl font-medium group-hover:bg-toolnest-text/90 transition-colors">
+                  Explore
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Tools Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-toolnest-text mb-4">
+              🚀 Upcoming Tools
+            </h2>
+            <p className="text-toolnest-text/80 text-lg">
+              Here's a sneak peek of what's coming soon to ToolNest
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            <button
+              onClick={() => scrollUpcomingTools('left')}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+            >
+              <ChevronLeft size={20} className="text-toolnest-text" />
+            </button>
+            <button
+              onClick={() => scrollUpcomingTools('right')}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+            >
+              <ChevronRight size={20} className="text-toolnest-text" />
+            </button>
+
+            <div
+              id="upcoming-tools-container"
+              className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 px-12 scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {upcomingTools.map((tool, index) => (
+                <motion.div
+                  key={tool.name}
+                  className="flex-shrink-0 w-80 bg-toolnest-accent p-6 rounded-2xl hover:scale-105 hover:shadow-lg transition-all duration-300 group"
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${tool.color}`}>
+                      {tool.category}
+                    </span>
+                    <span className="bg-toolnest-text text-white px-3 py-1 rounded-full text-xs font-semibold">
+                      Coming Soon
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-toolnest-text mb-2">
+                    {tool.name}
+                  </h3>
+                  <p className="text-toolnest-text/70 text-sm mb-4">
+                    {tool.description}
+                  </p>
+                  <button 
+                    className="w-full bg-toolnest-text/20 text-toolnest-text py-2 px-4 rounded-xl font-medium cursor-not-allowed"
+                    disabled
+                  >
+                    Coming Soon
                   </button>
                 </motion.div>
               ))}
@@ -428,7 +603,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Trusted Section - NEW */}
+      {/* Trusted Section */}
       <section className="py-20 px-6 bg-toolnest-accent/20">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -458,53 +633,6 @@ const Index = () => {
               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Tools Section */}
-      <section className="py-20 px-6 bg-toolnest-accent/20">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-toolnest-text mb-4">
-              Explore Popular Categories
-            </h2>
-            <p className="text-toolnest-text/80 text-lg">
-              Get a preview of what's waiting for you in our collection
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {toolsDataPlaceholder.map((tool, index) => (
-              <motion.div
-                key={tool.name}
-                className="bg-toolnest-accent p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl group"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center mb-4">
-                  <tool.icon className="text-toolnest-text mr-3 group-hover:scale-110 transition-transform" size={32} />
-                  <span className="bg-toolnest-text text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    Coming Soon
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-toolnest-text mb-2">
-                  {tool.name}
-                </h3>
-                <p className="text-toolnest-text/80 text-sm">
-                  {tool.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -611,7 +739,7 @@ const Index = () => {
               onClick={handleExploreTools}
             >
               Explore All Tools
-            </motion.button>
+            </button>
           </motion.div>
         </div>
       </section>
