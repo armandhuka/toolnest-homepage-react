@@ -54,6 +54,18 @@ import NumberBaseConverter from "./pages/number-tools/NumberBaseConverter";
 import RoundingTool from "./pages/number-tools/RoundingTool";
 import RandomGenerator from "./pages/number-tools/RandomGenerator";
 
+// Math Tools
+import BasicCalculator from "./pages/math-tools/BasicCalculator";
+import PrimeChecker from "./pages/math-tools/PrimeChecker";
+import Factorial from "./pages/math-tools/Factorial";
+import MultiplicationTable from "./pages/math-tools/MultiplicationTable";
+import QuadraticSolver from "./pages/math-tools/QuadraticSolver";
+import PercentageChange from "./pages/math-tools/PercentageChange";
+import TriangleArea from "./pages/math-tools/TriangleArea";
+import CircleCalculator from "./pages/math-tools/CircleCalculator";
+import ExponentLog from "./pages/math-tools/ExponentLog";
+import StatisticsCalculator from "./pages/math-tools/StatisticsCalculator";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -112,6 +124,18 @@ const App = () => (
             <Route path="/number-tools/number-base-converter" element={<NumberBaseConverter />} />
             <Route path="/number-tools/rounding" element={<RoundingTool />} />
             <Route path="/number-tools/random-generator" element={<RandomGenerator />} />
+            
+            {/* Math Tools Routes */}
+            <Route path="/math-tools/basic-calculator" element={<BasicCalculator />} />
+            <Route path="/math-tools/prime-checker" element={<PrimeChecker />} />
+            <Route path="/math-tools/factorial" element={<Factorial />} />
+            <Route path="/math-tools/multiplication-table" element={<MultiplicationTable />} />
+            <Route path="/math-tools/quadratic-solver" element={<QuadraticSolver />} />
+            <Route path="/math-tools/percentage-change" element={<PercentageChange />} />
+            <Route path="/math-tools/triangle-area" element={<TriangleArea />} />
+            <Route path="/math-tools/circle-calculator" element={<CircleCalculator />} />
+            <Route path="/math-tools/exponent-log" element={<ExponentLog />} />
+            <Route path="/math-tools/statistics-calculator" element={<StatisticsCalculator />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

@@ -1,4 +1,3 @@
-
 export interface Tool {
   id: number;
   name: string;
@@ -381,6 +380,15 @@ export const toolsData: Tool[] = [
   },
   {
     id: 41,
+    name: "Percentage Increase/Decrease Calculator",
+    description: "Calculate percentage change between values",
+    category: "Math Tools",
+    iconColor: "#EF4444",
+    icon: "📊",
+    status: "available"
+  },
+  {
+    id: 42,
     name: "Triangle Area Calculator",
     description: "Calculate area and perimeter of triangles",
     category: "Math Tools",
@@ -389,7 +397,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 42,
+    id: 43,
     name: "Circle Area Calculator",
     description: "Calculate area and circumference of circles",
     category: "Math Tools",
@@ -398,7 +406,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 43,
+    id: 44,
     name: "Logarithm Calculator",
     description: "Calculate logarithms and exponentials",
     category: "Math Tools",
@@ -407,7 +415,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 44,
+    id: 45,
     name: "Statistics Calculator",
     description: "Calculate mean, median, mode, and standard deviation",
     category: "Math Tools",
@@ -418,7 +426,7 @@ export const toolsData: Tool[] = [
 
   // Health Tools
   {
-    id: 45,
+    id: 46,
     name: "BMI Calculator",
     description: "Calculate your Body Mass Index and health category",
     category: "Health Tools",
@@ -427,7 +435,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 46,
+    id: 47,
     name: "Calorie Calculator",
     description: "Calculate daily calorie needs based on activity level",
     category: "Health Tools",
@@ -436,7 +444,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 47,
+    id: 48,
     name: "Water Intake Calculator",
     description: "Calculate your daily water intake requirements",
     category: "Health Tools",
@@ -445,7 +453,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 48,
+    id: 49,
     name: "Body Fat Percentage",
     description: "Calculate body fat percentage using various methods",
     category: "Health Tools",
@@ -454,7 +462,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 49,
+    id: 50,
     name: "Ideal Weight Calculator",
     description: "Calculate your ideal weight based on height and age",
     category: "Health Tools",
@@ -463,7 +471,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 50,
+    id: 51,
     name: "BMR Calculator",
     description: "Calculate Basal Metabolic Rate and daily energy expenditure",
     category: "Health Tools",
@@ -472,7 +480,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
   {
-    id: 51,
+    id: 52,
     name: "Macro Split Calculator",
     description: "Calculate optimal macronutrient distribution",
     category: "Health Tools",

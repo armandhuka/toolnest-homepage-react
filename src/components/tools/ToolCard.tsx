@@ -108,6 +108,23 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       return routeMap[toolName] || null;
     }
 
+    // Math Tools routes
+    if (category === 'Math Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Advanced Calculator': '/math-tools/basic-calculator',
+        'Prime Number Checker': '/math-tools/prime-checker',
+        'Factorial Calculator': '/math-tools/factorial',
+        'Multiplication Tables': '/math-tools/multiplication-table',
+        'Quadratic Equation Solver': '/math-tools/quadratic-solver',
+        'Percentage Increase/Decrease Calculator': '/math-tools/percentage-change',
+        'Triangle Area Calculator': '/math-tools/triangle-area',
+        'Circle Area Calculator': '/math-tools/circle-calculator',
+        'Logarithm Calculator': '/math-tools/exponent-log',
+        'Statistics Calculator': '/math-tools/statistics-calculator'
+      };
+      return routeMap[toolName] || null;
+    }
+
     return null;
   };
 
@@ -121,7 +138,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
   const isImplementedCategory = tool.category === 'Text Tools' || 
                                 tool.category === 'Unit Converter Tools' ||
                                 tool.category === 'Date & Time Tools' ||
-                                tool.category === 'Number Tools';
+                                tool.category === 'Number Tools' ||
+                                tool.category === 'Math Tools';
   const hasRoute = getToolRoute(tool.name, tool.category) !== null;
 
   return (
