@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Info, ExternalLink } from 'lucide-react';
@@ -92,6 +91,23 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       return routeMap[toolName] || null;
     }
 
+    // Number Tools routes - Added for Number Tools category
+    if (category === 'Number Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Percentage Calculator': '/number-tools/percentage-calculator',
+        'Interest Calculator': '/number-tools/simple-interest',
+        'EMI Calculator': '/number-tools/emi',
+        'Roman Number Converter': '/number-tools/roman-converter',
+        'LCM/HCF Calculator': '/number-tools/lcm-hcf',
+        'Number to Words': '/number-tools/number-to-words',
+        'Scientific Notation': '/number-tools/scientific-notation',
+        'Base Converter': '/number-tools/number-base-converter',
+        'Number Rounding': '/number-tools/rounding',
+        'Random Generator': '/number-tools/random-generator'
+      };
+      return routeMap[toolName] || null;
+    }
+
     return null;
   };
 
@@ -104,7 +120,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
 
   const isImplementedCategory = tool.category === 'Text Tools' || 
                                 tool.category === 'Unit Converter Tools' ||
-                                tool.category === 'Date & Time Tools';
+                                tool.category === 'Date & Time Tools' ||
+                                tool.category === 'Number Tools';
   const hasRoute = getToolRoute(tool.name, tool.category) !== null;
 
   return (

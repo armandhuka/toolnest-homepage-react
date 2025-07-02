@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,6 +41,18 @@ import WorkDays from "./pages/date-tools/WorkDays";
 import BirthdayCountdown from "./pages/date-tools/BirthdayCountdown";
 import LeapYear from "./pages/date-tools/LeapYear";
 import WeekNumber from "./pages/date-tools/WeekNumber";
+
+// Number Tools
+import PercentageCalculator from "./pages/number-tools/PercentageCalculator";
+import SimpleInterest from "./pages/number-tools/SimpleInterest";
+import EMICalculator from "./pages/number-tools/EMICalculator";
+import RomanConverter from "./pages/number-tools/RomanConverter";
+import LCMHCFCalculator from "./pages/number-tools/LCMHCFCalculator";
+import NumberToWords from "./pages/number-tools/NumberToWords";
+import ScientificNotation from "./pages/number-tools/ScientificNotation";
+import NumberBaseConverter from "./pages/number-tools/NumberBaseConverter";
+import RoundingTool from "./pages/number-tools/RoundingTool";
+import RandomGenerator from "./pages/number-tools/RandomGenerator";
 
 const queryClient = new QueryClient();
 
@@ -89,6 +100,18 @@ const App = () => (
             <Route path="/date-tools/birthday-countdown" element={<BirthdayCountdown />} />
             <Route path="/date-tools/leap-year" element={<LeapYear />} />
             <Route path="/date-tools/week-number" element={<WeekNumber />} />
+
+            {/* Number Tools Routes */}
+            <Route path="/number-tools/percentage-calculator" element={<PercentageCalculator />} />
+            <Route path="/number-tools/simple-interest" element={<SimpleInterest />} />
+            <Route path="/number-tools/emi" element={<EMICalculator />} />
+            <Route path="/number-tools/roman-converter" element={<RomanConverter />} />
+            <Route path="/number-tools/lcm-hcf" element={<LCMHCFCalculator />} />
+            <Route path="/number-tools/number-to-words" element={<NumberToWords />} />
+            <Route path="/number-tools/scientific-notation" element={<ScientificNotation />} />
+            <Route path="/number-tools/number-base-converter" element={<NumberBaseConverter />} />
+            <Route path="/number-tools/rounding" element={<RoundingTool />} />
+            <Route path="/number-tools/random-generator" element={<RandomGenerator />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
