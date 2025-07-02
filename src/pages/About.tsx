@@ -1,9 +1,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Star, RefreshCw, ArrowRight } from 'lucide-react';
+import { Check, Zap, BookOpen, Search, ArrowRight } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet-async';
 
 const About = () => {
   const containerVariants = {
@@ -28,12 +29,41 @@ const About = () => {
     }
   };
 
+  const features = [
+    {
+      icon: Check,
+      title: 'All Free, No Sign-up',
+      description: 'Access all tools without registration or hidden fees'
+    },
+    {
+      icon: Zap,
+      title: 'Instant Access',
+      description: 'Get results immediately with lightning-fast performance'
+    },
+    {
+      icon: BookOpen,
+      title: 'Smartly Categorized',
+      description: 'Organized by purpose for quick tool discovery'
+    },
+    {
+      icon: Search,
+      title: 'SEO-Optimized & Accurate',
+      description: 'Built for performance with precise calculations'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-toolnest-bg font-inter">
+      <Helmet>
+        <title>About ToolNest - Your Smart Tool Directory</title>
+        <meta name="description" content="Learn about ToolNest, your go-to platform for 150+ handy tools for development, productivity, and calculations - all free and accessible." />
+        <link rel="canonical" href="https://toolnest.com/about" />
+      </Helmet>
+
       <Header />
 
-      {/* Section 1: Introduction */}
-      <section className="pt-32 pb-20 px-6 bg-toolnest-bg">
+      {/* Page Header */}
+      <section className="pt-32 pb-16 px-6 bg-toolnest-bg">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             variants={containerVariants}
@@ -41,82 +71,56 @@ const About = () => {
             animate="visible"
           >
             <motion.h1 
-              className="text-5xl md:text-6xl font-bold text-toolnest-text mb-8"
+              className="text-5xl md:text-6xl font-bold text-toolnest-text mb-6"
               variants={itemVariants}
             >
               About ToolNest
             </motion.h1>
             
-            <motion.div 
-              className="space-y-6 text-lg text-toolnest-text/80"
+            <motion.p 
+              className="text-xl md:text-2xl text-toolnest-text/80 max-w-2xl mx-auto"
               variants={itemVariants}
             >
-              <p>
-                ToolNest was born from a simple idea: the rapidly evolving world of AI tools shouldn't be overwhelming. 
-                We recognized that creators, entrepreneurs, and professionals were spending countless hours searching for 
-                the right AI solutions, often missing out on incredible tools that could transform their work.
-              </p>
-              
-              <p>
-                Our mission is to bridge that gap by curating, categorizing, and presenting the best AI tools in one 
-                accessible platform. We're not just another directory – we're your trusted guide in the AI landscape, 
-                helping you discover tools that match your specific needs and goals.
-              </p>
-            </motion.div>
+              Your all-in-one smart tool directory.
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Section 2: Built for Modern Creators */}
-      <section className="py-20 px-6 bg-toolnest-accent">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop" 
-                alt="Modern AI workspace"
-                className="rounded-2xl shadow-lg w-full"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-toolnest-text mb-6">
-                Built for Modern Creators
-              </h2>
-              <div className="space-y-4 text-toolnest-text/80 text-lg">
+      {/* Introduction Section */}
+      <section className="py-16 px-6 bg-toolnest-accent">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg">
+              <div className="space-y-6 text-lg text-toolnest-text/80 leading-relaxed">
                 <p>
-                  In today's fast-paced digital world, creators need tools that work as hard as they do. 
-                  ToolNest understands the unique challenges faced by modern professionals.
+                  ToolNest is your go-to platform to access 150+ handy tools for daily development, 
+                  productivity, calculations, and more — all in one place. From text manipulation 
+                  to health calculators, we've curated the most useful tools you need.
                 </p>
+                
                 <p>
-                  We've built a platform that cuts through the noise, delivering only the most effective 
-                  AI solutions that have been tested and approved by real creators in the field.
-                </p>
-                <p>
-                  From content creation to data analysis, from design to development – ToolNest empowers 
-                  you to focus on what you do best while AI handles the rest.
+                  Our mission is to provide fast, accessible, and categorized tools to make your 
+                  digital life simpler. No downloads, no registrations, no complications — just 
+                  the tools you need when you need them.
                 </p>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Section 3: Why Choose ToolNest */}
-      <section className="py-20 px-6 bg-toolnest-bg">
-        <div className="max-w-7xl mx-auto">
+      {/* Why Choose ToolNest Section */}
+      <section className="py-16 px-6 bg-toolnest-bg">
+        <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -126,45 +130,29 @@ const About = () => {
               Why Choose ToolNest?
             </h2>
             <p className="text-toolnest-text/80 text-lg">
-              Three key reasons that set us apart from the competition
+              Four key reasons that make us different
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: '150+ Tools',
-                description: 'Comprehensive collection of carefully vetted AI tools across all categories',
-                icon: Search,
-                delay: 0
-              },
-              {
-                title: 'Categorized Browsing',
-                description: 'Smart organization by use case, industry, and functionality for quick discovery',
-                icon: Star,
-                delay: 0.2
-              },
-              {
-                title: 'Weekly Updates',
-                description: 'Fresh additions and updates ensure you never miss the latest innovations',
-                icon: RefreshCw,
-                delay: 0.4
-              }
-            ].map((feature) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group text-center"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: feature.delay }}
-                viewport={{ once: true, amount: 0.1 }}
-                whileHover={{ y: -10 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
               >
-                <feature.icon className="text-toolnest-text mb-6 group-hover:scale-110 transition-transform" size={48} />
-                <h3 className="text-2xl font-semibold text-toolnest-text mb-4">
+                <feature.icon 
+                  className="text-toolnest-text mx-auto mb-4 group-hover:scale-110 transition-transform" 
+                  size={40} 
+                />
+                <h3 className="text-lg font-semibold text-toolnest-text mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-toolnest-text/80 leading-relaxed">
+                <p className="text-toolnest-text/70 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -173,55 +161,8 @@ const About = () => {
         </div>
       </section>
 
-      {/* Section 4: Mission & Vision */}
-      <section className="py-20 px-6 bg-toolnest-accent">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
-            <motion.div
-              className="bg-white p-8 rounded-2xl shadow-lg"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold text-toolnest-text mb-6">Our Mission</h2>
-              <ul className="space-y-4 text-toolnest-text/80">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-toolnest-text rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Democratize access to cutting-edge AI tools for everyone
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-toolnest-text rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Save time by providing curated, tested, and categorized solutions
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-toolnest-text rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Empower creators and professionals to focus on what matters most
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              className="bg-white p-8 rounded-2xl shadow-lg"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold text-toolnest-text mb-6">Our Vision</h2>
-              <p className="text-toolnest-text/80 leading-relaxed">
-                We envision a future where AI tools are as accessible and easy to find as any other digital resource. 
-                ToolNest aims to become the go-to platform where innovation meets practicality, where every user can 
-                find the perfect AI companion for their unique challenges. We're building a community-driven ecosystem 
-                that evolves with the rapidly changing AI landscape.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 5: Final CTA */}
-      <section className="py-20 px-6 bg-toolnest-bg">
+      {/* Vision & Commitment */}
+      <section className="py-16 px-6 bg-toolnest-accent">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -229,20 +170,25 @@ const About = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-toolnest-text mb-6">
-              Join thousands of creators using ToolNest today
-            </h2>
-            <p className="text-toolnest-text/80 text-lg mb-8">
-              Ready to transform your workflow with the power of AI?
-            </p>
-            <motion.button
-              className="bg-toolnest-text text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl inline-flex items-center gap-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Explore Tools
-              <ArrowRight size={20} />
-            </motion.button>
+            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg">
+              <h2 className="text-3xl md:text-4xl font-bold text-toolnest-text mb-6">
+                Our Vision
+              </h2>
+              <p className="text-toolnest-text/80 text-lg leading-relaxed mb-8">
+                We aim to keep expanding, refining, and simplifying your interaction with tools — one click at a time. 
+                ToolNest will continue growing to become the ultimate destination for all your digital tool needs.
+              </p>
+              
+              <motion.button
+                className="bg-toolnest-text text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl inline-flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => window.location.href = '/tools'}
+              >
+                Start Using Tools
+                <ArrowRight size={20} />
+              </motion.button>
+            </div>
           </motion.div>
         </div>
       </section>
