@@ -32,12 +32,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     // Apply theme to document root
     document.documentElement.setAttribute('data-theme', theme);
-    // Also apply to body for better compatibility
-    document.body.className = theme === 'dark' ? 'dark' : '';
+    // Also apply class to html element for better CSS targeting
+    document.documentElement.className = theme;
     // Save theme to localStorage
     localStorage.setItem('toolnest-theme', theme);
     
     console.log('Theme applied:', theme);
+    console.log('Document theme attribute:', document.documentElement.getAttribute('data-theme'));
+    console.log('Document class:', document.documentElement.className);
   }, [theme]);
 
   const toggleTheme = () => {

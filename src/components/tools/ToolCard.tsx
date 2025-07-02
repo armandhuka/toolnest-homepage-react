@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Info, ExternalLink } from 'lucide-react';
@@ -35,14 +34,14 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
-      'Unit Converter Tools': 'bg-blue-100 text-blue-600',
-      'Text Tools': 'bg-green-100 text-green-600',
-      'Date & Time Tools': 'bg-purple-100 text-purple-600',
-      'Number Tools': 'bg-yellow-100 text-yellow-600',
-      'Math Tools': 'bg-red-100 text-red-600',
-      'Health Tools': 'bg-cyan-100 text-cyan-600'
+      'Unit Converter Tools': 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400',
+      'Text Tools': 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400',
+      'Date & Time Tools': 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400',
+      'Number Tools': 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400',
+      'Math Tools': 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400',
+      'Health Tools': 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400'
     };
-    return colors[category] || 'bg-gray-100 text-gray-600';
+    return colors[category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
   };
 
   const getToolRoute = (toolName: string, category: string) => {
@@ -162,7 +161,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
 
   return (
     <motion.div
-      className="bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-full flex flex-col"
+      className="bg-white dark:bg-toolnest-accent rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-full flex flex-col"
       whileHover={{ y: -5, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
@@ -173,18 +172,18 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
         </div>
         <div className="flex gap-2">
           <motion.button
-            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors duration-200"
+            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 flex items-center justify-center transition-colors duration-200"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <Info size={14} className="text-gray-600" />
+            <Info size={14} className="text-gray-600 dark:text-gray-300" />
           </motion.button>
           <motion.button
-            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-red-100 flex items-center justify-center transition-colors duration-200"
+            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-red-100 dark:bg-gray-700 dark:hover:bg-red-900/30 flex items-center justify-center transition-colors duration-200"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <Heart size={14} className="text-gray-600 hover:text-red-500" />
+            <Heart size={14} className="text-gray-600 hover:text-red-500 dark:text-gray-300 dark:hover:text-red-400" />
           </motion.button>
         </div>
       </div>
@@ -210,7 +209,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       <motion.button
         className={`w-full py-3 px-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
           (tool.status === 'available' && isImplementedCategory && hasRoute)
-            ? 'bg-toolnest-text text-white hover:bg-toolnest-text/90 hover:shadow-lg cursor-pointer'
+            ? 'bg-toolnest-text text-white hover:bg-toolnest-text/90 hover:shadow-lg cursor-pointer dark:bg-toolnest-text dark:text-toolnest-bg'
             : tool.status === 'available'
             ? 'bg-toolnest-accent/50 text-toolnest-text/70 cursor-not-allowed'
             : 'bg-toolnest-accent/50 text-toolnest-text/70 cursor-not-allowed'
