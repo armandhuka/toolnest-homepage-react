@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Calculator, RotateCcw, Backspace } from 'lucide-react';
+import { Calculator, RotateCcw, Delete } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -138,7 +138,7 @@ const BasicCalculator = () => {
                     Clear
                   </Button>
                   <Button onClick={backspace} variant="outline">
-                    <Backspace className="w-4 h-4" />
+                    <Delete className="w-4 h-4" />
                   </Button>
                   <Button onClick={() => inputOperation('÷')} variant="outline">÷</Button>
 
