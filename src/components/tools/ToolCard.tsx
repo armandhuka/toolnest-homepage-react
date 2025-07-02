@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Info, ExternalLink } from 'lucide-react';
@@ -125,6 +126,20 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       return routeMap[toolName] || null;
     }
 
+    // Health Tools routes
+    if (category === 'Health Tools') {
+      const routeMap: { [key: string]: string } = {
+        'BMI Calculator': '/health-tools/bmi-calculator',
+        'Calorie Calculator': '/health-tools/calorie-calculator',
+        'Water Intake Calculator': '/health-tools/water-intake',
+        'Body Fat Percentage': '/health-tools/body-fat',
+        'Ideal Weight Calculator': '/health-tools/ideal-weight',
+        'BMR Calculator': '/health-tools/bmr-calculator',
+        'Macro Split Calculator': '/health-tools/macro-splitter'
+      };
+      return routeMap[toolName] || null;
+    }
+
     return null;
   };
 
@@ -139,7 +154,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
                                 tool.category === 'Unit Converter Tools' ||
                                 tool.category === 'Date & Time Tools' ||
                                 tool.category === 'Number Tools' ||
-                                tool.category === 'Math Tools';
+                                tool.category === 'Math Tools' ||
+                                tool.category === 'Health Tools';
   const hasRoute = getToolRoute(tool.name, tool.category) !== null;
 
   return (

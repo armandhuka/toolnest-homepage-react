@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -65,6 +66,15 @@ import TriangleArea from "./pages/math-tools/TriangleArea";
 import CircleCalculator from "./pages/math-tools/CircleCalculator";
 import ExponentLog from "./pages/math-tools/ExponentLog";
 import StatisticsCalculator from "./pages/math-tools/StatisticsCalculator";
+
+// Health Tools
+import BMICalculator from "./pages/health-tools/BMICalculator";
+import CalorieCalculator from "./pages/health-tools/CalorieCalculator";
+import WaterIntake from "./pages/health-tools/WaterIntake";
+import BodyFat from "./pages/health-tools/BodyFat";
+import IdealWeight from "./pages/health-tools/IdealWeight";
+import BMRCalculator from "./pages/health-tools/BMRCalculator";
+import MacroSplitter from "./pages/health-tools/MacroSplitter";
 
 const queryClient = new QueryClient();
 
@@ -136,6 +146,15 @@ const App = () => (
             <Route path="/math-tools/circle-calculator" element={<CircleCalculator />} />
             <Route path="/math-tools/exponent-log" element={<ExponentLog />} />
             <Route path="/math-tools/statistics-calculator" element={<StatisticsCalculator />} />
+
+            {/* Health Tools Routes */}
+            <Route path="/health-tools/bmi-calculator" element={<BMICalculator />} />
+            <Route path="/health-tools/calorie-calculator" element={<CalorieCalculator />} />
+            <Route path="/health-tools/water-intake" element={<WaterIntake />} />
+            <Route path="/health-tools/body-fat" element={<BodyFat />} />
+            <Route path="/health-tools/ideal-weight" element={<IdealWeight />} />
+            <Route path="/health-tools/bmr-calculator" element={<BMRCalculator />} />
+            <Route path="/health-tools/macro-splitter" element={<MacroSplitter />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
