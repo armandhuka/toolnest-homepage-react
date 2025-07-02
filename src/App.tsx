@@ -1,8 +1,10 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Content from "./pages/Content";
@@ -32,48 +34,68 @@ import AreaConverter from "./pages/unit-tools/AreaConverter";
 import VolumeConverter from "./pages/unit-tools/VolumeConverter";
 import DataSizeConverter from "./pages/unit-tools/DataSizeConverter";
 
+// Date & Time Tools
+import AgeCalculator from "./pages/date-tools/AgeCalculator";
+import DateDifference from "./pages/date-tools/DateDifference";
+import Countdown from "./pages/date-tools/Countdown";
+import WorkDays from "./pages/date-tools/WorkDays";
+import BirthdayCountdown from "./pages/date-tools/BirthdayCountdown";
+import LeapYear from "./pages/date-tools/LeapYear";
+import WeekNumber from "./pages/date-tools/WeekNumber";
+
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/content" element={<Content />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/tools" element={<Tools />} />
-          
-          {/* Text Tools Routes */}
-          <Route path="/text-tools/word-counter" element={<WordCounter />} />
-          <Route path="/text-tools/remove-duplicates" element={<RemoveDuplicates />} />
-          <Route path="/text-tools/case-converter" element={<CaseConverter />} />
-          <Route path="/text-tools/text-sorter" element={<TextSorter />} />
-          <Route path="/text-tools/text-reverser" element={<TextReverser />} />
-          <Route path="/text-tools/slug-generator" element={<SlugGenerator />} />
-          <Route path="/text-tools/find-replace" element={<FindReplace />} />
-          <Route path="/text-tools/palindrome-checker" element={<PalindromeChecker />} />
-          <Route path="/text-tools/remove-special-chars" element={<RemoveSpecialChars />} />
-          <Route path="/text-tools/text-limiter" element={<TextLimiter />} />
+    <HelmetProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/content" element={<Content />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/tools" element={<Tools />} />
+            
+            {/* Text Tools Routes */}
+            <Route path="/text-tools/word-counter" element={<WordCounter />} />
+            <Route path="/text-tools/remove-duplicates" element={<RemoveDuplicates />} />
+            <Route path="/text-tools/case-converter" element={<CaseConverter />} />
+            <Route path="/text-tools/text-sorter" element={<TextSorter />} />
+            <Route path="/text-tools/text-reverser" element={<TextReverser />} />
+            <Route path="/text-tools/slug-generator" element={<SlugGenerator />} />
+            <Route path="/text-tools/find-replace" element={<FindReplace />} />
+            <Route path="/text-tools/palindrome-checker" element={<PalindromeChecker />} />
+            <Route path="/text-tools/remove-special-chars" element={<RemoveSpecialChars />} />
+            <Route path="/text-tools/text-limiter" element={<TextLimiter />} />
 
-          {/* Unit Converter Tools Routes */}
-          <Route path="/unit-tools/length-converter" element={<LengthConverter />} />
-          <Route path="/unit-tools/weight-converter" element={<WeightConverter />} />
-          <Route path="/unit-tools/temperature-converter" element={<TemperatureConverter />} />
-          <Route path="/unit-tools/time-converter" element={<TimeConverter />} />
-          <Route path="/unit-tools/speed-converter" element={<SpeedConverter />} />
-          <Route path="/unit-tools/area-converter" element={<AreaConverter />} />
-          <Route path="/unit-tools/volume-converter" element={<VolumeConverter />} />
-          <Route path="/unit-tools/data-size-converter" element={<DataSizeConverter />} />
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+            {/* Unit Converter Tools Routes */}
+            <Route path="/unit-tools/length-converter" element={<LengthConverter />} />
+            <Route path="/unit-tools/weight-converter" element={<WeightConverter />} />
+            <Route path="/unit-tools/temperature-converter" element={<TemperatureConverter />} />
+            <Route path="/unit-tools/time-converter" element={<TimeConverter />} />
+            <Route path="/unit-tools/speed-converter" element={<SpeedConverter />} />
+            <Route path="/unit-tools/area-converter" element={<AreaConverter />} />
+            <Route path="/unit-tools/volume-converter" element={<VolumeConverter />} />
+            <Route path="/unit-tools/data-size-converter" element={<DataSizeConverter />} />
+
+            {/* Date & Time Tools Routes */}
+            <Route path="/date-tools/age-calculator" element={<AgeCalculator />} />
+            <Route path="/date-tools/date-difference" element={<DateDifference />} />
+            <Route path="/date-tools/countdown" element={<Countdown />} />
+            <Route path="/date-tools/workdays" element={<WorkDays />} />
+            <Route path="/date-tools/birthday-countdown" element={<BirthdayCountdown />} />
+            <Route path="/date-tools/leap-year" element={<LeapYear />} />
+            <Route path="/date-tools/week-number" element={<WeekNumber />} />
+            
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </HelmetProvider>
   </QueryClientProvider>
 );
 

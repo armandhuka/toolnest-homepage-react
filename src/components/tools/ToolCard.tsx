@@ -78,6 +78,20 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       return routeMap[toolName] || null;
     }
 
+    // Date & Time Tools routes
+    if (category === 'Date & Time Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Age Calculator': '/date-tools/age-calculator',
+        'Date Diff': '/date-tools/date-difference',
+        'Countdown': '/date-tools/countdown',
+        'Work Days': '/date-tools/workdays',
+        'Birthday Countdown': '/date-tools/birthday-countdown',
+        'Leap Year': '/date-tools/leap-year',
+        'Week Number Checker': '/date-tools/week-number'
+      };
+      return routeMap[toolName] || null;
+    }
+
     return null;
   };
 
@@ -88,7 +102,9 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
     }
   };
 
-  const isImplementedCategory = tool.category === 'Text Tools' || tool.category === 'Unit Converter Tools';
+  const isImplementedCategory = tool.category === 'Text Tools' || 
+                                tool.category === 'Unit Converter Tools' ||
+                                tool.category === 'Date & Time Tools';
   const hasRoute = getToolRoute(tool.name, tool.category) !== null;
 
   return (
