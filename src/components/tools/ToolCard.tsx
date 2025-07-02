@@ -63,31 +63,31 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       return routeMap[toolName] || null;
     }
 
-    // Unit Converter Tools routes
+    // Unit Converter Tools routes - Fixed to match exact tool names
     if (category === 'Unit Converter Tools') {
       const routeMap: { [key: string]: string } = {
-        'Length': '/unit-tools/length-converter',
-        'Weight': '/unit-tools/weight-converter',
-        'Temperature': '/unit-tools/temperature-converter',
-        'Time': '/unit-tools/time-converter',
-        'Speed': '/unit-tools/speed-converter',
-        'Area': '/unit-tools/area-converter',
-        'Volume': '/unit-tools/volume-converter',
-        'Data Size': '/unit-tools/data-size-converter'
+        'Length Converter': '/unit-tools/length-converter',
+        'Weight Converter': '/unit-tools/weight-converter',
+        'Temperature Converter': '/unit-tools/temperature-converter',
+        'Time Converter': '/unit-tools/time-converter',
+        'Speed Converter': '/unit-tools/speed-converter',
+        'Area Converter': '/unit-tools/area-converter',
+        'Volume Converter': '/unit-tools/volume-converter',
+        'Data Size Converter': '/unit-tools/data-size-converter'
       };
       return routeMap[toolName] || null;
     }
 
-    // Date & Time Tools routes
+    // Date & Time Tools routes - Fixed to match exact tool names
     if (category === 'Date & Time Tools') {
       const routeMap: { [key: string]: string } = {
         'Age Calculator': '/date-tools/age-calculator',
-        'Date Diff': '/date-tools/date-difference',
-        'Countdown': '/date-tools/countdown',
-        'Work Days': '/date-tools/workdays',
-        'Birthday Countdown': '/date-tools/birthday-countdown',
-        'Leap Year': '/date-tools/leap-year',
-        'Week Number Checker': '/date-tools/week-number'
+        'Date Difference': '/date-tools/date-difference',
+        'Countdown Timer': '/date-tools/countdown',
+        'Work Days Calculator': '/date-tools/workdays',
+        'Next Birthday Countdown': '/date-tools/birthday-countdown',
+        'Leap Year Checker': '/date-tools/leap-year',
+        'Current Week Number Checker': '/date-tools/week-number'
       };
       return routeMap[toolName] || null;
     }

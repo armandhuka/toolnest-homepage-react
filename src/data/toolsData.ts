@@ -176,7 +176,7 @@ export const toolsData: Tool[] = [
     status: "available"
   },
 
-  // Date & Time Tools
+  // Date & Time Tools - Updated to match exact page names
   {
     id: 19,
     name: "Age Calculator",
@@ -215,7 +215,7 @@ export const toolsData: Tool[] = [
   },
   {
     id: 23,
-    name: "Birthday Countdown",
+    name: "Next Birthday Countdown",
     description: "Count days until your next birthday",
     category: "Date & Time Tools",
     iconColor: "#8B5CF6",
@@ -233,7 +233,7 @@ export const toolsData: Tool[] = [
   },
   {
     id: 25,
-    name: "Week Number Checker",
+    name: "Current Week Number Checker",
     description: "Find the week number for any date",
     category: "Date & Time Tools",
     iconColor: "#8B5CF6",
