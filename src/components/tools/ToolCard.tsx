@@ -146,6 +146,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
   const handleOpenTool = () => {
     const route = getToolRoute(tool.name, tool.category);
     if (route && tool.status === 'available') {
+      // Save the current category for persistent filtering
+      localStorage.setItem('selectedCategory', tool.category);
       navigate(route);
     }
   };

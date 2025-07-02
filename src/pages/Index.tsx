@@ -1,13 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Star, RefreshCw, ArrowDown, Mail, X, Zap, Bot, Image, FileText, Code, Video, Music, Palette } from 'lucide-react';
+import { Search, Star, RefreshCw, ArrowDown, Mail, X, Zap, Bot, Image, FileText, Code, Video, Music, Palette, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { toolsData } from '../data/toolsData';
 
 const Index = () => {
   const [email, setEmail] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,6 +25,15 @@ const Index = () => {
     console.log('Email submitted:', email);
     setEmail('');
   };
+
+  const handleExploreTools = () => {
+    navigate('/tools');
+  };
+
+  // Get featured tools (first 8 available tools from different categories)
+  const featuredTools = toolsData
+    .filter(tool => tool.status === 'available')
+    .slice(0, 8);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,7 +57,149 @@ const Index = () => {
     }
   };
 
-  const toolsData = [
+  const scrollFeaturedTools = (direction: 'left' | 'right') => {
+    const container = document.getElementById('featured-tools-container');
+    if (container) {
+      const scrollAmount = 300;
+      container.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const icons: { [key: string]: string } = {
+      'Unit Converter Tools': '📏',
+      'Text Tools': '📝',
+      'Date & Time Tools': '📅',
+      'Number Tools': '🔢',
+      'Math Tools': '🧮',
+      'Health Tools': '💪'
+    };
+    return icons[category] || '🔧';
+  };
+
+  const getCategoryColor = (category: string) => {
+    const colors: { [key: string]: string } = {
+      'Unit Converter Tools': 'bg-blue-100 text-blue-600',
+      'Text Tools': 'bg-green-100 text-green-600',
+      'Date & Time Tools': 'bg-purple-100 text-purple-600',
+      'Number Tools': 'bg-yellow-100 text-yellow-600',
+      'Math Tools': 'bg-red-100 text-red-600',
+      'Health Tools': 'bg-cyan-100 text-cyan-600'
+    };
+    return colors[category] || 'bg-gray-100 text-gray-600';
+  };
+
+  const getToolRoute = (toolName: string, category: string) => {
+    // Text Tools routes
+    if (category === 'Text Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Word Counter': '/text-tools/word-counter',
+        'Remove Duplicates': '/text-tools/remove-duplicates',
+        'Case Converter': '/text-tools/case-converter',
+        'Text Sorter': '/text-tools/text-sorter',
+        'Text Reverser': '/text-tools/text-reverser',
+        'Slug Generator': '/text-tools/slug-generator',
+        'Find & Replace': '/text-tools/find-replace',
+        'Palindrome Checker': '/text-tools/palindrome-checker',
+        'Remove Special Characters': '/text-tools/remove-special-chars',
+        'Text Limiter': '/text-tools/text-limiter'
+      };
+      return routeMap[toolName] || null;
+    }
+
+    // Unit Converter Tools routes
+    if (category === 'Unit Converter Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Length Converter': '/unit-tools/length-converter',
+        'Weight Converter': '/unit-tools/weight-converter',
+        'Temperature Converter': '/unit-tools/temperature-converter',
+        'Time Converter': '/unit-tools/time-converter',
+        'Speed Converter': '/unit-tools/speed-converter',
+        'Area Converter': '/unit-tools/area-converter',
+        'Volume Converter': '/unit-tools/volume-converter',
+        'Data Size Converter': '/unit-tools/data-size-converter'
+      };
+      return routeMap[toolName] || null;
+    }
+
+    // Date & Time Tools routes
+    if (category === 'Date & Time Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Age Calculator': '/date-tools/age-calculator',
+        'Date Difference': '/date-tools/date-difference',
+        'Countdown Timer': '/date-tools/countdown',
+        'Work Days Calculator': '/date-tools/workdays',
+        'Next Birthday Countdown': '/date-tools/birthday-countdown',
+        'Leap Year Checker': '/date-tools/leap-year',
+        'Current Week Number Checker': '/date-tools/week-number'
+      };
+      return routeMap[toolName] || null;
+    }
+
+    // Number Tools routes
+    if (category === 'Number Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Percentage Calculator': '/number-tools/percentage-calculator',
+        'Interest Calculator': '/number-tools/simple-interest',
+        'EMI Calculator': '/number-tools/emi',
+        'Roman Number Converter': '/number-tools/roman-converter',
+        'LCM/HCF Calculator': '/number-tools/lcm-hcf',
+        'Number to Words': '/number-tools/number-to-words',
+        'Scientific Notation': '/number-tools/scientific-notation',
+        'Base Converter': '/number-tools/number-base-converter',
+        'Number Rounding': '/number-tools/rounding',
+        'Random Generator': '/number-tools/random-generator'
+      };
+      return routeMap[toolName] || null;
+    }
+
+    // Math Tools routes
+    if (category === 'Math Tools') {
+      const routeMap: { [key: string]: string } = {
+        'Advanced Calculator': '/math-tools/basic-calculator',
+        'Prime Number Checker': '/math-tools/prime-checker',
+        'Factorial Calculator': '/math-tools/factorial',
+        'Multiplication Tables': '/math-tools/multiplication-table',
+        'Quadratic Equation Solver': '/math-tools/quadratic-solver',
+        'Percentage Increase/Decrease Calculator': '/math-tools/percentage-change',
+        'Triangle Area Calculator': '/math-tools/triangle-area',
+        'Circle Area Calculator': '/math-tools/circle-calculator',
+        'Logarithm Calculator': '/math-tools/exponent-log',
+        'Statistics Calculator': '/math-tools/statistics-calculator'
+      };
+      return routeMap[toolName] || null;
+    }
+
+    // Health Tools routes
+    if (category === 'Health Tools') {
+      const routeMap: { [key: string]: string } = {
+        'BMI Calculator': '/health-tools/bmi-calculator',
+        'Calorie Calculator': '/health-tools/calorie-calculator',
+        'Water Intake Calculator': '/health-tools/water-intake',
+        'Body Fat Percentage': '/health-tools/body-fat',
+        'Ideal Weight Calculator': '/health-tools/ideal-weight',
+        'BMR Calculator': '/health-tools/bmr-calculator',
+        'Macro Split Calculator': '/health-tools/macro-splitter'
+      };
+      return routeMap[toolName] || null;
+    }
+
+    return null;
+  };
+
+  const handleToolClick = (tool: typeof toolsData[0]) => {
+    const route = getToolRoute(tool.name, tool.category);
+    if (route) {
+      // Save the current category to localStorage for persistent filtering
+      localStorage.setItem('selectedCategory', tool.category);
+      navigate(route);
+    }
+  };
+
+  const toolsDataPlaceholder = [
     { name: "AI Writer Pro", description: "Generate high-quality content with advanced AI writing assistance", icon: FileText },
     { name: "Code Assistant", description: "Smart code completion and debugging for developers", icon: Code },
     { name: "Image Generator", description: "Create stunning visuals with AI-powered image generation", icon: Image },
@@ -83,7 +237,7 @@ const Index = () => {
                 🔥 ToolNest is Live!
               </h3>
               <p className="text-toolnest-text/80 mb-6">
-                Discover 150+ AI tools designed to simplify your digital life.
+                Discover 150+ tools designed to simplify your digital life.
               </p>
               <button
                 onClick={() => setShowModal(false)}
@@ -98,7 +252,7 @@ const Index = () => {
 
       <Header />
 
-      {/* Hero Section */}
+      {/* Hero Section - Updated */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         <div className="absolute inset-0 opacity-5">
           <div className="animate-float absolute top-20 left-10">
@@ -122,18 +276,17 @@ const Index = () => {
             className="text-5xl md:text-7xl font-bold text-toolnest-text mb-6"
             variants={itemVariants}
           >
-            Discover 150+ AI Tools to{' '}
+            All Your Favorite Tools{' '}
             <span className="bg-gradient-to-r from-toolnest-text to-toolnest-accent bg-clip-text text-transparent">
-              Supercharge
-            </span>{' '}
-            Your Workflow
+              in One Place
+            </span>
           </motion.h1>
           
           <motion.p 
             className="text-xl md:text-2xl text-toolnest-text/80 mb-8"
             variants={itemVariants}
           >
-            Handpicked categories. Fast access. Always updated.
+            150+ tools across categories like text, numbers, dates, and more — free and fast.
           </motion.p>
           
           <motion.button
@@ -141,6 +294,7 @@ const Index = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.05, backgroundColor: '#9a99a3' }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleExploreTools}
           >
             Explore Tools
           </motion.button>
@@ -153,6 +307,82 @@ const Index = () => {
         >
           <ArrowDown className="text-toolnest-text/60" size={24} />
         </motion.div>
+      </section>
+
+      {/* Featured Tools Section - NEW */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-toolnest-text mb-4">
+              Featured Tools
+            </h2>
+            <p className="text-toolnest-text/80 text-lg">
+              Popular tools used by thousands of users
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Scroll buttons */}
+            <button
+              onClick={() => scrollFeaturedTools('left')}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+            >
+              <ChevronLeft size={20} className="text-toolnest-text" />
+            </button>
+            <button
+              onClick={() => scrollFeaturedTools('right')}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+            >
+              <ChevronRight size={20} className="text-toolnest-text" />
+            </button>
+
+            {/* Scrollable container */}
+            <div
+              id="featured-tools-container"
+              className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 px-12"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {featuredTools.map((tool, index) => (
+                <motion.div
+                  key={tool.id}
+                  className="flex-shrink-0 w-80 bg-toolnest-accent p-6 rounded-2xl hover:bg-white transition-all duration-300 cursor-pointer hover:shadow-lg group"
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                  onClick={() => handleToolClick(tool)}
+                >
+                  <div className="flex items-center mb-4">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${getCategoryColor(tool.category)} shadow-sm mr-4`}>
+                      {getCategoryIcon(tool.category)}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-toolnest-text mb-1">
+                        {tool.name}
+                      </h3>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(tool.category)}`}>
+                        {tool.category}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-toolnest-text/70 text-sm mb-4 line-clamp-2">
+                    {tool.description}
+                  </p>
+                  <button className="w-full bg-toolnest-text text-white py-2 px-4 rounded-xl font-medium group-hover:bg-toolnest-text/90 transition-colors">
+                    Try Now
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Feature Section */}
@@ -172,7 +402,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: '150+ Tools', description: 'Carefully curated collection of the best AI tools', icon: Search },
+              { title: '150+ Tools', description: 'Carefully curated collection of the best tools', icon: Search },
               { title: 'Smart Categories', description: 'Organized by use case for easy discovery', icon: Star },
               { title: 'Updated Weekly', description: 'Fresh tools added every week', icon: RefreshCw }
             ].map((feature, index) => (
@@ -198,6 +428,39 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Trusted Section - NEW */}
+      <section className="py-20 px-6 bg-toolnest-accent/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-toolnest-text mb-4">
+              Trusted by Thousands of Developers
+            </h2>
+            <p className="text-toolnest-text/80 text-lg mb-8">
+              Join our community of users who rely on ToolNest for their daily workflow
+            </p>
+            <div className="flex justify-center items-center gap-8 flex-wrap">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-toolnest-text">10K+</div>
+                <div className="text-toolnest-text/70">Active Users</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-toolnest-text">150+</div>
+                <div className="text-toolnest-text/70">Tools Available</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-toolnest-text">99.9%</div>
+                <div className="text-toolnest-text/70">Uptime</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Tools Section */}
       <section className="py-20 px-6 bg-toolnest-accent/20">
         <div className="max-w-7xl mx-auto">
@@ -209,7 +472,7 @@ const Index = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-toolnest-text mb-4">
-              Explore Popular Tools
+              Explore Popular Categories
             </h2>
             <p className="text-toolnest-text/80 text-lg">
               Get a preview of what's waiting for you in our collection
@@ -217,7 +480,7 @@ const Index = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {toolsData.map((tool, index) => (
+            {toolsDataPlaceholder.map((tool, index) => (
               <motion.div
                 key={tool.name}
                 className="bg-toolnest-accent p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl group"
@@ -262,7 +525,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-12">
             {[
-              { step: '1', title: 'Browse Tools', description: 'Explore our curated collection of AI tools' },
+              { step: '1', title: 'Browse Tools', description: 'Explore our curated collection of tools' },
               { step: '2', title: 'Choose Category', description: 'Find tools by specific use case or industry' },
               { step: '3', title: 'Start Using', description: 'Click through to start using your chosen tool' }
             ].map((step, index) => (
@@ -303,7 +566,7 @@ const Index = () => {
               Get Updates When New Tools Are Added
             </h2>
             <p className="text-toolnest-text/80 mb-8">
-              Be the first to discover the latest AI tools in our collection
+              Be the first to discover the latest tools in our collection
             </p>
             
             <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -345,6 +608,7 @@ const Index = () => {
               className="bg-toolnest-text text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleExploreTools}
             >
               Explore All Tools
             </motion.button>

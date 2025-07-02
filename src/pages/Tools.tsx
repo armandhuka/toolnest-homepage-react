@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ToolCard from '../components/tools/ToolCard';
@@ -10,12 +11,42 @@ import { toolsData } from '../data/toolsData';
 const Tools = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // Get unique categories from tools data
   const categories = useMemo(() => {
     const cats = [...new Set(toolsData.map(tool => tool.category))];
     return ['All', ...cats];
   }, []);
+
+  // Initialize filter state from URL params or localStorage
+  useEffect(() => {
+    const urlCategory = searchParams.get('category');
+    const savedCategory = localStorage.getItem('selectedCategory');
+    
+    if (urlCategory && categories.includes(urlCategory)) {
+      setSelectedCategory(urlCategory);
+    } else if (savedCategory && categories.includes(savedCategory)) {
+      setSelectedCategory(savedCategory);
+      // Update URL to reflect the saved category
+      setSearchParams({ category: savedCategory });
+    }
+  }, [searchParams, categories, setSearchParams]);
+
+  // Update URL and localStorage when category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    
+    if (category === 'All') {
+      // Remove category param and localStorage item for "All"
+      setSearchParams({});
+      localStorage.removeItem('selectedCategory');
+    } else {
+      // Save to URL params and localStorage
+      setSearchParams({ category });
+      localStorage.setItem('selectedCategory', category);
+    }
+  };
 
   // Filter tools based on search and category
   const filteredTools = useMemo(() => {
@@ -97,7 +128,7 @@ const Tools = () => {
                 {/* Category Filter */}
                 <select
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
                   className="px-6 py-3 rounded-full border-2 border-transparent bg-white shadow-lg focus:outline-none focus:border-toolnest-text transition-all duration-300 capitalize"
                 >
                   {categories.map(category => (
@@ -111,6 +142,11 @@ const Tools = () => {
               {/* Results Count */}
               <p className="text-toolnest-text/70 mt-4">
                 Showing {filteredTools.length} of {toolsData.length} tools
+                {selectedCategory !== 'All' && (
+                  <span className="ml-2 px-3 py-1 bg-toolnest-accent rounded-full text-sm font-medium">
+                    {selectedCategory}
+                  </span>
+                )}
               </p>
             </motion.div>
           </motion.div>
@@ -149,7 +185,7 @@ const Tools = () => {
                 <button
                   onClick={() => {
                     setSearchTerm('');
-                    setSelectedCategory('All');
+                    handleCategoryChange('All');
                   }}
                   className="px-6 py-3 bg-toolnest-text text-white rounded-full hover:bg-toolnest-text/90 transition-colors duration-200"
                 >
